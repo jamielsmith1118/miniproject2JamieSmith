@@ -46,4 +46,19 @@ high = severity["High"]
 moderate = severity["Moderate"]
 low = severity["Low"]
 
-print (f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
+#create pie chart
+severity.plot.pie(x="Date", y="Severity")
+plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# Save graphs in directory named charts
+plt.savefig(f'charts/pie.png')
+
+plt.show()
+
+#create pie chart
+severity.plot.bar(x="Date", y="Severity")
+#plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# Save graphs in directory named charts
+plt.savefig(f'charts/bar.png')
+
+plt.show()
+# print (f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
