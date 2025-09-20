@@ -1,32 +1,8 @@
 ### INF601 - Advanced Programming in Python
 ### Jamie Smith
 ### Mini Project 2
-import data
-#import necessary packages
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from pathlib import Path
 
-# Create data folder if it does not exist
-data = Path('data')
-if not data.exists():
-    Path(r'data').mkdir()
 
-#Define dataframe
-df = pd.read_csv("./data/Security_Vulnerabilities.csv", index_col=0)
-
-#Display number of vulnerabilities of each severity.
-severity = (df[["Severity"]]).value_counts()
-critical = severity["Critical"]
-high = severity["High"]
-moderate = severity["Moderate"]
-low = severity["Low"]
-
-print(f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
-# print (severity["High"])
-# print (severity["Moderate"])
-# print (severity["Low"])
 
 # This project will be using Pandas dataframes. This isn't intended to be full blown data science project. The goal here is to come up with some question and then see what API or datasets you can use to get the information needed to answer that question. This will get you familar with working with datasets and asking questions, researching APIs and gathering datasets. If you get stuck here, please email me!
 #
@@ -44,3 +20,30 @@ print(f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE
 # (10/10 points) I will be checking out the main branch of your project. Please be sure to include a requirements.txt file which contains all the packages that need installed. You can create this fille with the output of pip freeze at the terminal prompt.
 # (20/20 points) There should be a README.md file in your project that explains what your project is, how to install the pip requirements, and how to execute the program. Please use the GitHub flavor of Markdown. Be thorough on the explanations.
 
+#import necessary packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+#Define dataframe
+df = pd.read_csv("./data/Security Vulnerabilities.csv", index_col=0)
+
+# Create data folder if it does not exist
+data = Path('data')
+if not data.exists():
+    Path(r'data').mkdir()
+
+# Create charts folder if it does not exist
+charts = Path('charts')
+if not charts.exists():
+    Path(r'charts').mkdir()
+
+#Display number of vulnerabilities of each severity.
+severity = (df[["Severity"]]).value_counts()
+critical = severity["Critical"]
+high = severity["High"]
+moderate = severity["Moderate"]
+low = severity["Low"]
+
+print (f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
