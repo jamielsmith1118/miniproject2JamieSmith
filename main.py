@@ -85,7 +85,48 @@ if sev_col in df.columns:
     plt.xlabel("Severity"); plt.ylabel("Count")
     chart("counts_by_severity_bar_chart")
 
+# Monthly count over time
+if date_col:
+    # Convert Date column to datetime
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
 
+    #Drop any rows that are missing dates
+    d = df.dropna(subset=[date_col]).copy()
+    # Convert Date column to datetime
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    # Filter the data set this chart builds from
+    d = df[df["Date"] >= "2022-12-01"]
+    if not d.empty:
+        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+        monthly = d.groupby("Date").size()
+        # Make the chart
+        plt.figure(figsize=(9,5))
+        monthly.plot(kind="line")
+        plt.title("Vulnerabilities Over Time (Monthly)")
+        plt.xlabel("Month"); plt.ylabel("Count")
+        plt.xticks(rotation=45, ha="right")
+        chart("Monthly_over_time")
+
+if date_col:
+    # Convert Date column to datetime
+    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+
+    #Drop any rows that are missing dates
+    d = df.dropna(subset=[date_col]).copy()
+    # Convert Date column to datetime
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    # Filter the data set this chart builds from
+    d = df[df["Date"] >= "2023-08-15"]
+    if not d.empty:
+        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+        monthly = d.groupby("Date").size()
+        # Make the chart
+        plt.figure(figsize=(9,5))
+        monthly.plot(kind="bar")
+        plt.title("Vulnerabilities Over Time (Monthly)")
+        plt.xlabel("Month"); plt.ylabel("Count")
+        plt.xticks(rotation=45, ha="right")
+        chart("Monthly_over_time")
 # https://realpython.com/pandas-plot-python/
 # #create pie chart
 # severity.plot.pie(x="Date", y="Severity")
