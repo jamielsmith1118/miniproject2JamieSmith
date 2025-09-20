@@ -29,15 +29,14 @@ from pathlib import Path
 #Define dataframe
 df = pd.read_csv("./data/Security Vulnerabilities.csv", index_col=0)
 
+# Variable for columns from df
+date_col = "Date"
+sev_col = "Severity"
+
 # Create data folder if it does not exist
 data = Path('data')
 if not data.exists():
     Path(r'data').mkdir()
-
-# Create charts folder if it does not exist
-charts = Path('charts')
-if not charts.exists():
-    Path(r'charts').mkdir()
 
 #Display number of vulnerabilities of each severity.
 severity = (df[["Severity"]]).value_counts()
@@ -46,19 +45,78 @@ high = severity["High"]
 moderate = severity["Moderate"]
 low = severity["Low"]
 
-#create pie chart
-severity.plot.pie(x="Date", y="Severity")
-plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# Function to save charts as .png files
+# def chart(name):
+#     plt.savefig (f'charts/{name}.png')
+#     plt.show()
+
+# Create charts folder if it does not exist
+charts = Path('charts')
+if not charts.exists():
+    Path(r'charts').mkdir()
+
 # Save graphs in directory named charts
-plt.savefig(f'charts/pie.png')
+def chart(name):
+    # Makes the labels fit in the picture
+    plt.tight_layout()
+    # Saves the chart in the charts directory
+    plt.savefig (f'charts/{name}.png')
+    # Displays the chart
+    plt.show()
+    # Closes the chart
+    plt.close()
 
-plt.show()
+# Count by severity
+if sev_col in df.columns:
+    # Create new figure 8" W X 5" H
+    plt.figure(figsize=(8,5))
+    (df[sev_col].replace("", np.nan).dropna().value_counts().sort_index()
+       .plot(kind="barh", rot=0))
+    plt.title("Count by Severity")
+    plt.xlabel("Count"); plt.ylabel("Severity")
+    chart("counts_by_severity_horizontal_bar_chart")
 
-#create pie chart
+if sev_col in df.columns:
+    # Create new figure 8" W X 5" H
+    plt.figure(figsize=(8,5))
+    (df[sev_col].replace("", np.nan).dropna().value_counts().sort_index()
+       .plot(kind="bar", rot=0))
+    plt.title("Count by Severity")
+    plt.xlabel("Severity"); plt.ylabel("Count")
+    chart("counts_by_severity_bar_chart")
+
+
+# https://realpython.com/pandas-plot-python/
+# #create pie chart
+# severity.plot.pie(x="Date", y="Severity")
+# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# # Save graphs in directory named charts
+# plt.savefig(f'charts/pie.png')
+#
+# plt.show()
+#
+# Create bar chart
 severity.plot.bar(x="Date", y="Severity")
 #plt.axis((0,10, severity[0]-10, severity[-1]+10))
 # Save graphs in directory named charts
-plt.savefig(f'charts/bar.png')
+# plt.savefig(f'charts/bar.png')
+#
+# #create horizontal bar chart
+# severity.plot.barh(x="Severity", y="Date")
+# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# # Save graphs in directory named charts
+# plt.savefig(f'charts/horizontal bar.png')
+#
+# #create line chart
+# severity.plot.line(x="Date", y="Severity")
+# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
+# # Save graphs in directory named charts
+# plt.savefig(f'charts/line.png')
 
-plt.show()
+
+# df.plot(x="Severity", y=["Date", "Summary", "Link"])
+
+
+# plt.show()
 # print (f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
+
