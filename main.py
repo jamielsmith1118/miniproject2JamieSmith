@@ -1,12 +1,20 @@
 ### INF601 - Advanced Programming in Python
 ### Jamie Smith
 ### Mini Project 2
-
+import data
 #import necessary packages
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# Create data folder if it does not exist
+data = Path('data')
+if not data.exists():
+    Path(r'data').mkdir()
 
 #Define dataframe
-df = pd.read_excel("./data/Security_Vulnerabilities.xlsx", index_col=0)
+df = pd.read_csv("./data/Security_Vulnerabilities.csv", index_col=0)
 
 #Display number of vulnerabilities of each severity.
 severity = (df[["Severity"]]).value_counts()
@@ -15,10 +23,10 @@ high = severity["High"]
 moderate = severity["Moderate"]
 low = severity["Low"]
 
-print (severity["Critical"])
-print (severity["High"])
-print (severity["Moderate"])
-print (severity["Low"])
+print(f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
+# print (severity["High"])
+# print (severity["Moderate"])
+# print (severity["Low"])
 
 # This project will be using Pandas dataframes. This isn't intended to be full blown data science project. The goal here is to come up with some question and then see what API or datasets you can use to get the information needed to answer that question. This will get you familar with working with datasets and asking questions, researching APIs and gathering datasets. If you get stuck here, please email me!
 #
