@@ -38,6 +38,14 @@ data = Path('data')
 if not data.exists():
     Path(r'data').mkdir()
 
+# Consistent colors for severity levels
+severity_colors = {
+    "CRITICAL": "red",
+    "HIGH": "orange",
+    "MODERATE": "gold",
+    "LOW": "green"
+}
+
 #Display number of vulnerabilities of each severity.
 severity = (df[["Severity"]]).value_counts()
 critical = severity["Critical"]
@@ -70,8 +78,24 @@ def chart(name):
 if sev_col in df.columns:
     # Create new figure 8" W X 5" H
     plt.figure(figsize=(8,5))
-    (df[sev_col].replace("", np.nan).dropna().value_counts().sort_index()
-       .plot(kind="barh", rot=0))
+
+    # Count severities
+    counts = (
+        df[sev_col]
+        .astype(str).str.strip().str.upper()
+        .replace("", np.nan)
+        .dropna()
+        .value_counts()
+        .sort_index())
+    # Match bar colors to severity (fallback to gray if not in dictionary)
+    bar_colors = [
+    severity_colors.get(sev, "gray")
+    for sev in counts.index
+    ]
+
+    # Plot with custom colors
+    counts.plot(kind="barh", rot=0, color=bar_colors)
+    plt.title("Count by Severity")
     plt.title("Count by Severity")
     plt.xlabel("Count"); plt.ylabel("Severity")
     chart("counts_by_severity_horizontal_bar_chart")
@@ -79,10 +103,27 @@ if sev_col in df.columns:
 if sev_col in df.columns:
     # Create new figure 8" W X 5" H
     plt.figure(figsize=(8,5))
-    (df[sev_col].replace("", np.nan).dropna().value_counts().sort_index()
-       .plot(kind="bar", rot=0))
+
+    # Count severities
+    counts = (
+        df[sev_col]
+        .astype(str).str.strip().str.upper()
+        .replace("", np.nan)
+        .dropna()
+        .value_counts()
+        .sort_index())
+
+    # Match bar colors to severity (fallback to gray if not in dictionary)
+    bar_colors = [
+    severity_colors.get(sev, "gray")
+    for sev in counts.index
+    ]
+
+    # Plot with custom colors
+    counts.plot(kind="bar", rot=0, color=bar_colors)
     plt.title("Count by Severity")
-    plt.xlabel("Severity"); plt.ylabel("Count")
+    plt.xlabel("Severity")
+    plt.ylabel("Count")
     chart("counts_by_severity_bar_chart")
 
 # Monthly count over time
@@ -128,36 +169,3 @@ if date_col:
         plt.xticks(rotation=45, ha="right")
         chart("Monthly_over_time")
 # https://realpython.com/pandas-plot-python/
-# #create pie chart
-# severity.plot.pie(x="Date", y="Severity")
-# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
-# # Save graphs in directory named charts
-# plt.savefig(f'charts/pie.png')
-#
-# plt.show()
-#
-# Create bar chart
-severity.plot.bar(x="Date", y="Severity")
-#plt.axis((0,10, severity[0]-10, severity[-1]+10))
-# Save graphs in directory named charts
-# plt.savefig(f'charts/bar.png')
-#
-# #create horizontal bar chart
-# severity.plot.barh(x="Severity", y="Date")
-# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
-# # Save graphs in directory named charts
-# plt.savefig(f'charts/horizontal bar.png')
-#
-# #create line chart
-# severity.plot.line(x="Date", y="Severity")
-# #plt.axis((0,10, severity[0]-10, severity[-1]+10))
-# # Save graphs in directory named charts
-# plt.savefig(f'charts/line.png')
-
-
-# df.plot(x="Severity", y=["Date", "Summary", "Link"])
-
-
-# plt.show()
-# print (f"CRITICAL: {severity["Critical"]} \t HIGH: {severity["High"]} \t MODERATE: {severity["Moderate"]} \t LOW: {severity["Low"]}")
-
