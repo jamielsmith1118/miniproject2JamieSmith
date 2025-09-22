@@ -9,32 +9,59 @@ Simple overview of use/purpose.
  
 ## Description
  
-An in-depth paragraph about your project and overview of use.
+This project analyzes a dataset of reported security vulnerabilities using Python, Pandas, and Matplotlib. The dataset contains information such as vulnerability title, date, severity, summary, and reference link.
+
+The primary goal of the project is to answer the question:
+“How have security vulnerabilities trended over time, and how do they break down by severity?”
+
+To explore this question, the program:
+
+- Loads the dataset into a Pandas DataFrame for structured analysis.
+
+- Cleans the data by handling missing values and standardizing severity labels.
+
+- Generates basic statistics on vulnerabilities by severity and over time.
+
+- Creates a variety of visualizations that help interpret the data, including:
+
+- A horizontal bar chart showing vulnerability counts by severity.
+
+- A pie chart showing the distribution of vulnerabilities by severity.
+
+- A vertical bar chart showing severity counts with color coding.
+
+- A line chart showing the monthly trend of reported vulnerabilities.
+
+- A bar chart showing monthly counts for easier comparison.
+
+- Saves all charts as .png images in a dedicated charts/ folder.
+
+- Pauses briefly between charts so the user can view each visualization.
+
+This project demonstrates working with external data sources, cleaning and analyzing data in Python, and visualizing results with Matplotlib. It provides both statistical summaries and visual insights that make the patterns in the vulnerability data clear and easy to understand.
  
 ## Getting Started
  
 ### Dependencies
  
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-* List pip install instructions.
+* Please install the pip requirements
+```
+pip install -r requirements
+```
 
  
 ### Installing
  
-* How/where to download your program
-* Any modifications needed to be made to files/folders
 * Download the Security Vulnerabilities Dataset from https://www.kaggle.com/datasets/ighoshsubho/security-vulnerabilities-dataset
 * Extract file
-* Rename file to Security_Vulnerabilities.csv
-* Copy into a folder named data
+* Copy Security Vulnerabilities.csv into a folder named data
  
 ### Executing program
  
 * How to run the program
 * Step-by-step bullets
 ```
-code blocks for commands
+python main.py
 ```
  
 ## Help
@@ -46,24 +73,14 @@ command to run if program contains helper info
  
 ## Authors
  
-Contributors names and contact info
- 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+Jamie Smith
  
 ## Version History
  
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
 * 0.1
     * Initial Release
  
-## License
- 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
- 
-## Acknowledgments
+# Acknowledgments
  
 Inspiration, code snippets, etc.
 * [awesome-readme](https://github.com/matiassingers/awesome-readme)

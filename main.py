@@ -25,8 +25,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
+import time
 
-#Define dataframe
+# Define dataframe
 df = pd.read_csv("./data/Security Vulnerabilities.csv", index_col=0)
 
 # Variable for columns from df
@@ -46,17 +47,12 @@ severity_colors = {
     "LOW": "green"
 }
 
-#Display number of vulnerabilities of each severity.
+# Display number of vulnerabilities of each severity.
 severity = (df[["Severity"]]).value_counts()
 critical = severity["Critical"]
 high = severity["High"]
 moderate = severity["Moderate"]
 low = severity["Low"]
-
-# Function to save charts as .png files
-# def chart(name):
-#     plt.savefig (f'charts/{name}.png')
-#     plt.show()
 
 # Create charts folder if it does not exist
 charts = Path('charts')
@@ -71,13 +67,15 @@ def chart(name):
     plt.savefig (f'charts/{name}.png')
     # Displays the chart
     plt.show()
+    # Pauses for 2 seconds
+    time.sleep(2)
     # Closes the chart
     plt.close()
 
-# Count by severity
+# Count by severity horizontal bar chart
 if sev_col in df.columns:
     # Create new figure 8" W X 5" H
-    plt.figure(figsize=(8,5))
+    #plt.figure(figsize=(8,5))
 
     # Count severities
     counts = (
@@ -100,9 +98,36 @@ if sev_col in df.columns:
     plt.xlabel("Count"); plt.ylabel("Severity")
     chart("counts_by_severity_horizontal_bar_chart")
 
+# Count by severity pie chart
 if sev_col in df.columns:
     # Create new figure 8" W X 5" H
-    plt.figure(figsize=(8,5))
+    #plt.figure(figsize=(8,5))
+
+    # Count severities
+    counts = (
+        df[sev_col]
+        .astype(str).str.strip().str.upper()
+        .replace("", np.nan)
+        .dropna()
+        .value_counts()
+        .sort_index())
+    # Match bar colors to severity (fallback to gray if not in dictionary)
+    bar_colors = [
+    severity_colors.get(sev, "gray")
+    for sev in counts.index
+    ]
+
+    # Plot with custom colors
+    counts.plot(kind="pie", rot=0, color=bar_colors)
+    plt.title("Count by Severity")
+    plt.title("Count by Severity")
+    plt.xlabel("Count"); plt.ylabel("Severity")
+    chart("counts_by_severity_pie_chart")
+
+# Count by severity bar chart
+if sev_col in df.columns:
+    # Create new figure 8" W X 5" H
+    #plt.figure(figsize=(8,5))
 
     # Count severities
     counts = (
@@ -126,7 +151,7 @@ if sev_col in df.columns:
     plt.ylabel("Count")
     chart("counts_by_severity_bar_chart")
 
-# Monthly count over time
+# Monthly count over time (line chart with marker)
 if date_col:
     # Convert Date column to datetime
     df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
@@ -136,18 +161,20 @@ if date_col:
     # Convert Date column to datetime
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     # Filter the data set this chart builds from
-    d = df[df["Date"] >= "2022-12-01"]
+    d = df[df["Date"] >= "2021-5-01"].dropna(subset=[date_col]).copy()
     if not d.empty:
-        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-        monthly = d.groupby("Date").size()
+        # Create a month column by rounding down to the fist day of the month
+        d["month"] = d[date_col].dt.strftime("%Y-%m")
+        monthly = d.groupby("month").size()
         # Make the chart
-        plt.figure(figsize=(9,5))
-        monthly.plot(kind="line")
+        #plt.figure(figsize=(9,5))
+        monthly.plot(kind="line", marker="o")
         plt.title("Vulnerabilities Over Time (Monthly)")
         plt.xlabel("Month"); plt.ylabel("Count")
         plt.xticks(rotation=45, ha="right")
-        chart("Monthly_over_time")
+        chart("Monthly_over_time_line_chart")
 
+# Monthly count over time bar chart
 if date_col:
     # Convert Date column to datetime
     df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
@@ -157,15 +184,17 @@ if date_col:
     # Convert Date column to datetime
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     # Filter the data set this chart builds from
-    d = df[df["Date"] >= "2023-08-15"]
+    d = df[df["Date"] >= "2021-5-01"].dropna(subset=[date_col]).copy()
     if not d.empty:
-        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-        monthly = d.groupby("Date").size()
+        # Create a month column by rounding down to the fist day of the month
+        d["month"] = d[date_col].dt.strftime("%Y-%m")
+        monthly = d.groupby("month").size()
         # Make the chart
-        plt.figure(figsize=(9,5))
+        #plt.figure(figsize=(9,5))
         monthly.plot(kind="bar")
         plt.title("Vulnerabilities Over Time (Monthly)")
         plt.xlabel("Month"); plt.ylabel("Count")
         plt.xticks(rotation=45, ha="right")
-        chart("Monthly_over_time")
+        chart("Monthly_over_time_bar_chart")
+
 # https://realpython.com/pandas-plot-python/
