@@ -94,7 +94,6 @@ if sev_col in df.columns:
     # Plot with custom colors
     counts.plot(kind="barh", rot=0, color=bar_colors)
     plt.title("Count by Severity")
-    plt.title("Count by Severity")
     plt.xlabel("Count"); plt.ylabel("Severity")
     chart("counts_by_severity_horizontal_bar_chart")
 
@@ -120,14 +119,13 @@ if sev_col in df.columns:
     # Plot with custom colors
     counts.plot(kind="pie", rot=0, color=bar_colors)
     plt.title("Count by Severity")
-    plt.title("Count by Severity")
-    plt.xlabel("Count"); plt.ylabel("Severity")
+    plt.xlabel("Percentage of Total Vulnerabilities"); plt.ylabel("")
     chart("counts_by_severity_pie_chart")
 
 # Count by severity bar chart
 if sev_col in df.columns:
-    # Create new figure 10" W X 7" H
-    plt.figure(figsize=(10,7))
+    # Create new figure 9" W X 6" H
+    plt.figure(figsize=(9,6))
 
     # Count severities
     counts = (
