@@ -52,7 +52,7 @@ pip install -r requirements
 ### Executing program
  
 * Download the Security Vulnerabilities Dataset from https://www.kaggle.com/datasets/ighoshsubho/security-vulnerabilities-dataset
-* Extract the file inside the .zip file
+* Extract the Security Vulnerabilities.csv file located inside the .zip file
 * Copy Security Vulnerabilities.csv into a folder within the project. Ensure the folder is named data
 * Then run:
 ```
