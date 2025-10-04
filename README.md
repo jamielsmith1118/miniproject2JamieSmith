@@ -46,12 +46,15 @@ This project demonstrates working with external data sources, cleaning and analy
  
 * Please install the pip requirements
 ```
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 ### Executing program
  
 * Download the Security Vulnerabilities Dataset from https://www.kaggle.com/datasets/ighoshsubho/security-vulnerabilities-dataset
+* Click Download at the top of page
+* Click Download dataset as zip
+* Save file to a known location
 * Extract the Security Vulnerabilities.csv file located inside the .zip file
 * Copy Security Vulnerabilities.csv into a folder within the project. Ensure the folder is named data
 * Then run:
