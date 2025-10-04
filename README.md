@@ -58,6 +58,7 @@ pip install -r requirements.txt
 * Extract the Security Vulnerabilities.csv file located inside the .zip file
 * Copy Security Vulnerabilities.csv into a folder within the project. Ensure the folder is named data
 * Then run:
+
 ```
 python main.py
 ```
