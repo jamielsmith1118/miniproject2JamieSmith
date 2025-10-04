@@ -74,8 +74,8 @@ def chart(name):
 
 # Count by severity horizontal bar chart
 if sev_col in df.columns:
-    # Create new figure 8" W X 5" H
-    #plt.figure(figsize=(8,5))
+    # Create new chart 10" W X 5" H
+    plt.figure(figsize=(10,5))
 
     # Count severities
     counts = (
@@ -101,7 +101,7 @@ if sev_col in df.columns:
 # Count by severity pie chart
 if sev_col in df.columns:
     # Create new figure 8" W X 5" H
-    #plt.figure(figsize=(8,5))
+    plt.figure(figsize=(8,5))
 
     # Count severities
     counts = (
@@ -126,8 +126,8 @@ if sev_col in df.columns:
 
 # Count by severity bar chart
 if sev_col in df.columns:
-    # Create new figure 8" W X 5" H
-    #plt.figure(figsize=(8,5))
+    # Create new figure 10" W X 7" H
+    plt.figure(figsize=(10,7))
 
     # Count severities
     counts = (
@@ -153,6 +153,9 @@ if sev_col in df.columns:
 
 # Monthly count over time (line chart with marker)
 if date_col:
+    # Create new figure 10" W X 7" H
+    plt.figure(figsize=(10,7))
+
     # Convert Date column to datetime
     df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
 
@@ -166,8 +169,8 @@ if date_col:
         # Create a month column by rounding down to the fist day of the month
         d["month"] = d[date_col].dt.strftime("%Y-%m")
         monthly = d.groupby("month").size()
+
         # Make the chart
-        #plt.figure(figsize=(9,5))
         monthly.plot(kind="line", marker="o")
         plt.title("Vulnerabilities Over Time (Monthly)")
         plt.xlabel("Month"); plt.ylabel("Count")
@@ -176,6 +179,9 @@ if date_col:
 
 # Monthly count over time bar chart
 if date_col:
+    # Create new figure 10" W X 7" H
+    plt.figure(figsize=(10,7))
+
     # Convert Date column to datetime
     df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
 
@@ -189,12 +195,10 @@ if date_col:
         # Create a month column by rounding down to the fist day of the month
         d["month"] = d[date_col].dt.strftime("%Y-%m")
         monthly = d.groupby("month").size()
+
         # Make the chart
-        #plt.figure(figsize=(9,5))
         monthly.plot(kind="bar")
         plt.title("Vulnerabilities Over Time (Monthly)")
         plt.xlabel("Month"); plt.ylabel("Count")
         plt.xticks(rotation=45, ha="right")
         chart("Monthly_over_time_bar_chart")
-
-# https://realpython.com/pandas-plot-python/

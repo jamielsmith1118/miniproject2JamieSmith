@@ -5,13 +5,13 @@
  
 # Project Title
  
-Simple overview of use/purpose.
+MiniProject 2 - Vulnerability Charts
  
 ## Description
  
 This project analyzes a dataset of reported security vulnerabilities using Python, Pandas, and Matplotlib. The dataset contains information such as vulnerability title, date, severity, summary, and reference link.
 
-The primary goal of the project is to answer the question:
+The primary goal of the project is to answer the questions:
 “How have security vulnerabilities trended over time, and how do they break down by severity?”
 
 To explore this question, the program:
@@ -49,28 +49,16 @@ This project demonstrates working with external data sources, cleaning and analy
 pip install -r requirements
 ```
 
- 
-### Installing
+### Executing program
  
 * Download the Security Vulnerabilities Dataset from https://www.kaggle.com/datasets/ighoshsubho/security-vulnerabilities-dataset
 * Extract file
 * Copy Security Vulnerabilities.csv into a folder named data
- 
-### Executing program
- 
-* How to run the program
-* Step-by-step bullets
+* Then run:
 ```
 python main.py
 ```
- 
-## Help
- 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
- 
+
 ## Authors
  
 Jamie Smith
@@ -83,8 +71,5 @@ Jamie Smith
 # Acknowledgments
  
 Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+* [Matplotlib Documentation](https://matplotlib.org/stable/users/index.html)
+* chatgpt using the HutchCC business subscription - Chat available upon approved request
